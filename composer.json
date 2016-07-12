@@ -1,0 +1,16 @@
+{
+    "name": "marvinosswald/laravel-socialmedia",
+    "description": "A laravel adapter for social media networks",
+    "type": "social media",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marvin Oßwald",
+            "email": "marvin.osswald@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "facebook/php-sdk-v4": "^5.2"
+    }
+}
