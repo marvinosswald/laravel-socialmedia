@@ -4,4 +4,4 @@
 
 ### Facebook
 
-Obtain permanent Access Token: http://stackoverflow.com/a/28418469
+Obtain permanent (2 Months) Access Token: http://stackoverflow.com/a/28418469

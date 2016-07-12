@@ -1,7 +1,7 @@
 {
     "name": "marvinosswald/laravel-socialmedia",
     "description": "A laravel adapter for social media networks",
-    "type": "social media",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
