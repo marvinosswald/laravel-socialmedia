@@ -23,8 +23,10 @@ class FacebookTest extends Orchestra\Testbench\TestCase {
      */
     protected function getEnvironmentSetUp($app)
     {
-        $dotenv = new Dotenv\Dotenv(__DIR__."/../");
-        $dotenv->load();
+        if (file_exists (__DIR__."/../.env")){
+            $dotenv = new Dotenv\Dotenv(__DIR__."/../");
+            $dotenv->load();
+        }
     }
 
     public function testFacebookPost()
