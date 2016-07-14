@@ -1,5 +1,7 @@
 #laravel-socialmedia
 
+[![Build Status](https://travis-ci.org/marvinosswald/laravel-socialmedia.svg?branch=master)](https://travis-ci.org/marvinosswald/laravel-socialmedia)
+
 ## Drivers
 
 ### Facebook
