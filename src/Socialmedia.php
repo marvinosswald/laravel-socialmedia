@@ -32,11 +32,43 @@ class Socialmedia
         }
     }
 
-    public function post($params)
+    /**
+     * @param $params
+     * @param array $drivers
+     * @return array
+     */
+    public function post($params,$drivers=[])
+    {
+        return $this->execWithDrivers($drivers,'post',$params);
+    }
+
+    /**
+     * @param $id
+     * @param array $drivers
+     * @return array
+     */
+    public function delete($id,$drivers=[])
+    {
+        return $this->execWithDrivers($drivers,'delete',$id);
+    }
+
+    /**
+     * @param array $drivers
+     * @param $method
+     * @param $params
+     * @return array
+     */
+    private function execWithDrivers($drivers=[],$method,$params)
     {
         $res = [];
-        foreach ($this->availableDrivers as $short => $driver){
-            $res[$short] = $driver->post($params);
+        if (empty($drivers)){
+            foreach ($this->availableDrivers as $short => $driver){
+                $res[$short] = $driver->{$method}($params);
+            }
+        }else{
+            foreach ($drivers as $short){
+                $res[$short] = $this->availableDrivers[$short]->{$method}($params);
+            }
         }
         return $res;
     }
