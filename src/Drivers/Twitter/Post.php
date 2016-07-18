@@ -1,17 +1,16 @@
 <?php
-namespace marvinosswald\Socialmedia\Drivers\Facebook;
+namespace marvinosswald\Socialmedia\Drivers\Twitter;
 
-use Facebook\Facebook;
-use Facebook\FacebookRequest;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use marvinosswald\Socialmedia\Contracts\PostInterface;
 
 /**
  * Class Post
- * @package Marvinosswald\Socialmedia\Drivers\Facebook
+ * @package Marvinosswald\Socialmedia\Drivers\Twitter
  */
 class Post implements PostInterface{
     /**
-     * @var
+     * @var string|int
      */
     public $id;
     /**
@@ -86,13 +85,19 @@ class Post implements PostInterface{
         'cities' => false
     ];
     /**
-     * @var Facebook/Facebook
+     * @var TwitterOAuth
      */
-    protected $fb;
+    protected $twitter;
 
-    public function __construct($fb,$params= [])
+    /**
+     * Post constructor.
+     * @param $twitter
+     * @param array $params
+     * @param bool $id
+     */
+    public function __construct($twitter,array $params=[])
     {
-        $this->fb = $fb;
+        $this->twitter = $twitter;
         if (!empty($params)){
             foreach ($params as $key => $value){
                 if (gettype($value) == gettype($this->{$key})){
@@ -101,6 +106,7 @@ class Post implements PostInterface{
             }
         }
     }
+
     /**
      * @param $driver
      * @param $id
@@ -113,39 +119,39 @@ class Post implements PostInterface{
         $i->id = $id;
         return $i;
     }
-
     /**
-     * @return mixed|string
+     * @return string
      */
     public function exec()
     {
         try{
-            return json_decode($this->fb->post('/me/feed',$this->toArray())->getBody());
+            return $this->twitter->post('statuses/update',$this->toArray())->id;
         }catch (Exception $e){
             return $e->getMessage();
         }
+
     }
 
     /**
-     * @param $id
-     * @return \Facebook\FacebookResponse|string
+     * @return array|object|string
      */
     public function delete()
     {
-        try{
-            return $this->fb->delete('/'.$this->id);
-        }catch (Exception $e){
-            return $e->getMessage();
+        if($this->id){
+            try{
+                $post = $this->twitter->post('statuses/destroy/'.$this->id);
+                return $post;
+            }catch (Exception $e){
+                return $e->getMessage();
+            }
+        }else{
+            return "Post id not set";
         }
     }
-
-    /**
-     * @return array
-     */
     public function toArray()
     {
         return array_filter([
-            'message' => $this->message,
+            'status' => $this->message,
             'link' => $this->link,
             'picture' => $this->picture,
             'name' => $this->name,

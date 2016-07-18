@@ -65,10 +65,7 @@ class Driver implements DriverInterface
 
     public function delete($id)
     {
-        try{
-            return $this->fb->delete('/'.$id);
-        }catch (Exception $e){
-            return $e->getMessage();
-        }
+        $post = Post::withId($this->fb,$id);
+        $post->delete();
     }
 }

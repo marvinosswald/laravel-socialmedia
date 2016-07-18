@@ -14,7 +14,8 @@ class Socialmedia
      * @var array
      */
     protected $drivers = [
-        'facebook' => 'marvinosswald\Socialmedia\Drivers\Facebook\Driver'
+        'facebook' => 'marvinosswald\Socialmedia\Drivers\Facebook\Driver',
+        'twitter' => 'marvinosswald\Socialmedia\Drivers\Twitter\Driver'
     ];
 
     /**
