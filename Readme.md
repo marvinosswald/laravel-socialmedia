@@ -57,6 +57,17 @@ Obtain permanent Access Token: https://dev.twitter.com/oauth/overview/applicatio
 
 [Api Documentation](https://developers.pinterest.com/docs/api/pins/)
 
+How to get an access token:
+- [Create Developer Account here](https://developers.pinterest.com)
+- Create App and get app_id & app_secret from app details page
+- [Issue new token](https://developers.pinterest.com/tools/access_token/)
+
+#### Settings
+##### ENV Variables
+- PINTEREST_APP_ID
+- PINTEREST_APP_SECRET
+- PINTEREST_ACCESS_TOKEN
+
 ### Instagram
 
 [Hacky api endpoint](http://stackoverflow.com/a/26186389)

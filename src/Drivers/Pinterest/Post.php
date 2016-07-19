@@ -1,12 +1,13 @@
 <?php
-namespace marvinosswald\Socialmedia\Drivers\Twitter;
+namespace marvinosswald\Socialmedia\Drivers\Pinterest;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use DirkGroenen\Pinterest\Pinterest;
 use marvinosswald\Socialmedia\Contracts\PostInterface;
 
 /**
  * Class Post
- * @package Marvinosswald\Socialmedia\Drivers\Twitter
+ * @package Marvinosswald\Socialmedia\Drivers\Pinterest
  */
 class Post implements PostInterface{
     /**
@@ -33,71 +34,24 @@ class Post implements PostInterface{
      */
     public $picture = '';
     /**
-     * Overwrites the title of the link preview.
+     * Board reference like <username>/<boardname>
      *
      * @var string
      */
-    public $name = '';
+    public $board = '';
     /**
-     * Overwrites the caption under the title in the link preview.
-     *
-     * @var string
+     * @var Pinterest
      */
-    public $caption = '';
-    /**
-     * Overwrites the description in the link preview
-     *
-     * @var string
-     */
-    public $description = '';
-
-    /**
-     * Page ID of a location associated with this post. Either link, place, or message must be supplied.
-     *
-     * @var string
-     */
-    public $place = '';
-
-    /**
-     * Comma-separated list of user IDs of people tagged in this post. You cannot specify this field without also specifying a place.
-     *
-     * @var array
-     */
-    public $tags = [];
-
-    /**
-     * Determines the privacy settings of the post. If not supplied, this defaults to the privacy level granted to the app in the Login Dialog. This field cannot be used to set a more open privacy setting than the one granted.
-     *
-     * @var array
-     */
-    public $privacy = [
-        'value' => '', /**enum{'EVERYONE', 'ALL_FRIENDS', 'FRIENDS_OF_FRIENDS', 'CUSTOM', 'SELF'}**/
-        'allow' => '',
-        'deny' => ''
-    ];
-    /**
-     * @var array
-     */
-    public $targeting = [
-        'countries' => false,
-        'locales' => false,
-        'regions' => false,
-        'cities' => false
-    ];
-    /**
-     * @var TwitterOAuth
-     */
-    protected $twitter;
+    protected $pinterest;
 
     /**
      * Post constructor.
-     * @param $twitter
+     * @param $pinterest
      * @param array $params
-     * @param bool $id
      */
-    public function __construct($twitter,array $params=[])
+    public function __construct($pinterest,array $params=[])
     {
-        $this->twitter = $twitter;
+        $this->pinterest = $pinterest;
         if (!empty($params)){
             foreach ($params as $key => $value){
                 if (gettype($value) == gettype($this->{$key})){
@@ -125,7 +79,7 @@ class Post implements PostInterface{
     public function exec()
     {
         try{
-            return $this->twitter->post('statuses/update',$this->toArray())->id;
+            return $this->pinterest->pins->create($this->toArray());
         }catch (Exception $e){
             return $e->getMessage();
         }
@@ -139,7 +93,7 @@ class Post implements PostInterface{
     {
         if($this->id){
             try{
-                $post = $this->twitter->post('statuses/destroy/'.$this->id);
+                $post = $this->pinterest->pins->delete($this->id);
                 return $post;
             }catch (Exception $e){
                 return $e->getMessage();
@@ -151,7 +105,10 @@ class Post implements PostInterface{
     public function toArray()
     {
         return array_filter([
-            'status' => $this->message
+            'note' => $this->message,
+            'link' => $this->link,
+            base64_decode($this->picture,true) ? 'image_base64': 'image_url' => $this->picture,
+            'board' => $this->board ?: $this->pinterest->defaultBoard
         ]);
     }
 }

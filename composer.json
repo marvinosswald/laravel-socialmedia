@@ -12,7 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "facebook/php-sdk-v4": "^5.2",
-        "abraham/twitteroauth": "^0.6.4"
+        "abraham/twitteroauth": "^0.6.4",
+        "dirkgroenen/Pinterest-API-PHP": "^0.2.11"
     },
     "require-dev": {
         "orchestra/testbench": "~3.2",

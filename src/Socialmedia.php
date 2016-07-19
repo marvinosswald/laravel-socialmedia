@@ -15,7 +15,8 @@ class Socialmedia
      */
     protected $drivers = [
         'facebook' => 'marvinosswald\Socialmedia\Drivers\Facebook\Driver',
-        'twitter' => 'marvinosswald\Socialmedia\Drivers\Twitter\Driver'
+        'twitter' => 'marvinosswald\Socialmedia\Drivers\Twitter\Driver',
+        'pinterest' => 'marvinosswald\Socialmedia\Drivers\Pinterest\Driver'
     ];
 
     /**

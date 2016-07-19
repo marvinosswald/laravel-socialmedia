@@ -6,7 +6,7 @@ use marvinosswald\Socialmedia\Contracts\DriverInterface;
 
 /**
  * Class FacebookDriver
- * @package Marvinosswald\Socialmedia\Drivers
+ * @package Marvinosswald\Socialmedia\Drivers\Facebook
  */
 class Driver implements DriverInterface
 {
