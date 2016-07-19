@@ -21,7 +21,7 @@ class Driver implements DriverInterface
     /**
      * @var string
      */
-    public $default_graph_version = 'v2.6';
+    public $default_graph_version = 'v2.7';
     /**
      * @var string
      */
@@ -38,7 +38,7 @@ class Driver implements DriverInterface
      * @param string $default_graph_version
      * @param bool $default_access_token
      */
-    public function __construct($app_id = false, $app_secret = false, $default_graph_version = 'v2.6', $default_access_token = false)
+    public function __construct($app_id = false, $app_secret = false, $default_graph_version = 'v2.7', $default_access_token = false)
     {
         $this->app_id = $app_id ?: env('FACEBOOK_APP_ID');
         $this->app_secret = $app_secret ?: env('FACEBOOK_APP_SECRET');

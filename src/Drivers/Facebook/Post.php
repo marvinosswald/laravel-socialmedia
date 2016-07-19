@@ -60,7 +60,7 @@ class Post implements PostInterface{
     public $place = '';
 
     /**
-     * Comma-separated list of user IDs of people tagged in this post. You cannot specify this field without also specifying a place.
+     * Array of Tags to be highlighted
      *
      * @var array
      */
@@ -98,6 +98,11 @@ class Post implements PostInterface{
                 if (gettype($value) == gettype($this->{$key})){
                     $this->{$key} = $value;
                 }
+            }
+        }
+        if (!empty($this->tags)){
+            foreach ($this->tags as $tag){
+                $this->message = str_replace($tag,'#'.$tag,$this->message);
             }
         }
     }

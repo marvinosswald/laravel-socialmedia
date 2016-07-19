@@ -28,19 +28,26 @@ class FacebookTest extends Orchestra\Testbench\TestCase {
             $dotenv->load();
         }
     }
-
+    
     public function testFacebookPost()
     {
-        $message = 'Test Message';
-        $post = Socialmedia::post([
-            'message' => $message
-        ],['facebook']);
+        $params = [
+            'message' => 'Message in a bottle',
+            'link' => 'http://google.com',
+            'picture' => 'http://placehold.it/200/400',
+            'name' => 'The one who must not be named',
+            'caption' => 'What an caption',
+            'description' => 'Description',
+            'place' => '',
+            'tags' => ['bottle'],
+            'targeting' => ['locales' => 5]
+        ];
+        $post = Socialmedia::post($params,['facebook']);
         // Create a client with a base URI
         $client = new GuzzleHttp\Client(['base_uri' => 'https://graph.facebook.com/v2.6/']);
         $res = json_decode($client->request('GET', $post['facebook']->id."?access_token=".env('FACEBOOK_ACCESS_TOKEN'))->getBody());
 
-        $this->assertEquals($message,$res->message);
+        $this->assertEquals('Message in a #bottle',$res->message);
         Socialmedia::delete($res->id,["facebook"]);
-
     }
 }

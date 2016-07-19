@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/marvinosswald/laravel-socialmedia.svg?branch=master)](https://travis-ci.org/marvinosswald/laravel-socialmedia)
 [![MIT License](https://img.shields.io/packagist/l/marvinosswald/laravel-socialmedia.svg?style=flat-square)](https://packagist.org/packages/marvinosswald/laravel-socialmedia)
 
+The first step will be to implement a post function for each Driver and on this way a matching delete function for testing reasons.
+
+
 ## Install
 ```
 
